@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootView = inflater!!.inflate(R.layout.fragment_profile, container, false)
-        var image = rootView.findViewById<ImageView>(R.id.QRCode)
+//        var image = rootView.findViewById<ImageView>(R.id.QRCode)
         try {
             // some code
             var bitmap : Bitmap = encodeAsBitmap("Anip Mehta")
