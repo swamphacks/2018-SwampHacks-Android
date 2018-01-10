@@ -2,6 +2,7 @@ package com.anip.swamphacks.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -48,6 +49,7 @@ class EventsFragment(passedContext : Context) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootView = inflater!!.inflate(R.layout.fragment_event, container, false)
+        rootView.setBackgroundColor(Color.WHITE)
         var eventLists : MutableList<MutableList<Event>> = mutableListOf<MutableList<Event>> ()
 //        val rv = rootView.findViewById<RecyclerView>(R.id.recyclerView1)
 //        rv.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
@@ -114,13 +116,19 @@ class EventsFragment(passedContext : Context) : Fragment() {
         }
 //        val toolbar = rootView.findViewById<View>(R.id.toolbar) as Toolbar
 //        cont.setSupportActionBar(toolbar)
-        ref.addValueEventListener(eventListener)
+//        ref.addValueEventListener(eventListener)
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = EventPagerAdapter(fragmentManager, cont, listOf("Friday", "Saturday", "Sunday"),eventLists)
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = rootView.findViewById<ViewPager?>(R.id.container)
+        mViewPager!!.setCurrentItem(0,true)
+        mViewPager!!.offscreenPageLimit = 2
+        mViewPager!!.setClipToPadding(false)
+        mViewPager!!.setPadding(50, 0, 50, 0)
+        val tabLayout = rootView.findViewById<View>(R.id.tabs) as TabLayout
+        tabLayout.setupWithViewPager(mViewPager)
         mViewPager!!.adapter = mSectionsPagerAdapter
 
 

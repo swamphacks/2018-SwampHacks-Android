@@ -23,8 +23,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val database: DatabaseHelper = DatabaseHelper.Instance(applicationContext)
 //        database.use
         database.use {
-            insert("Notification", "Id" to p0!!.from, "Title" to
-                    p0!!.data.getValue("title"), "Message" to p0.notification.body!!)
+            insert("Notification", "id" to p0!!.from, "title" to
+                    p0!!.data.getValue("title"), "message" to p0.notification.body!!)
             var data = select("Notification").exec {
                 parseList(classParser<Announcement>())
             }

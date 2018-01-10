@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private DatabaseReference ref;
     private DatabaseHelper db;
-    private ArrayList<Event> events;
+    public static ArrayList<Event> events;
 //    private Event event;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,8 +64,11 @@ public class LoginActivity extends AppCompatActivity {
                         Event event = data.getValue(Event.class);
                         events.add(event);
                     }
-                    Log.i("hell  --->   ", String.valueOf(events.size()));
+//                    Log.i("hell  --->   ", String.valueOf(events.size()));
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                    Gson gson = new Gson();
+//                    String json = gson.toJson(events);
+//                    intent.putExtra("events", events);
                     startActivity(intent);
 
                 }
@@ -72,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
+                    Log.i("hell  --->   ", databaseError.getMessage());
                 }
             });
 

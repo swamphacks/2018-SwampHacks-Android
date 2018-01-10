@@ -1,5 +1,6 @@
 package com.anip.swamphacks.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -37,6 +38,7 @@ class NotificationFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootView = inflater!!.inflate(R.layout.fragment_notification, container, false)
         val rv = rootView.findViewById<RecyclerView>(R.id.recyclerView1)
+        rootView.setBackgroundColor(Color.WHITE)
         rv.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
 //        notifications = mutableListOf()
         val database: DatabaseHelper = DatabaseHelper.Instance(context)

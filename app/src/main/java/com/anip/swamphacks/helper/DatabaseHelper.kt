@@ -23,12 +23,17 @@ class  DatabaseHelper(ctx : Context) : ManagedSQLiteOpenHelper(ctx,"SwampHacks",
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    db!!.dropTable("Notification", true)
+        db!!.dropTable("Notification", true)
+        db!!.dropTable("Events", true)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    db!!.createTable("Notification", true, "Id" to INTEGER ,"Title" to TEXT, "Message" to TEXT )
+        db!!.createTable("Notification", true, "id" to INTEGER ,"title" to TEXT, "message" to TEXT )
+        db!!.createTable("Events", true, "id" to INTEGER ,
+                "name" to TEXT, "description" to TEXT, "startTime" to TEXT, "endTime" to TEXT,
+                "location" to TEXT, "numAttendees" to INTEGER, "type" to TEXT,"map" to TEXT,
+                "avgRating" to TEXT)
     }
 
 }
