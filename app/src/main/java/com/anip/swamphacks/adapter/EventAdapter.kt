@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.anip.swamphacks.AnnouncementActivity
+import com.anip.swamphacks.EventActivity
 import com.anip.swamphacks.R
 import com.anip.swamphacks.model.Event
 import com.anip.swamphacks.model.SingleEvent
@@ -22,9 +23,9 @@ class EventAdapter(val eventList : List<SingleEvent>, private val context: Conte
         holder?.txtTitle?.text = eventList[position].description
         holder?.itemView?.setOnClickListener {
             println("Clicked Item Name"+eventList[position].name)
-//            val intent = Intent(context, AnnouncementActivity:: class.java )
-//            intent.
-//            context.startActivity(intent)
+            val intent = Intent(context, EventActivity:: class.java )
+            intent.putExtra("name",eventList[position].name)
+            context.startActivity(intent)
         }
     }
 

@@ -74,6 +74,7 @@ class HomeActivity : AppCompatActivity() {
         val database: DatabaseHelper = DatabaseHelper.Instance(applicationContext)
 //        database.use
         events.forEach {
+
             database.use {
                 insert("Events", "id" to 12, "name" to
                         it.name, "description" to it.description!!)
@@ -89,11 +90,11 @@ class HomeActivity : AppCompatActivity() {
 
     }
     private fun addFragment(fragment: Fragment) {
+        supportFragmentManager.popBackStack()
         supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
 
-//                .remove(fragment)
                 .replace(R.id.content,fragment)
                 .addToBackStack(null)
                 .commit()
