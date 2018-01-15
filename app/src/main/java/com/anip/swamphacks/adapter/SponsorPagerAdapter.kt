@@ -1,38 +1,29 @@
 package com.anip.swamphacks.adapter
 
-
 import android.content.Context
 import android.os.Parcelable
 import android.support.v4.app.Fragment
-
-import android.support.v4.app.FragmentManager
-//import android.support.Fragment
-
-//import android.app.FragmentPager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
 import android.util.Log
-
-import com.anip.swamphacks.fragment.EventDayListFragment
-import com.anip.swamphacks.model.Event
-
+import com.anip.swamphacks.fragment.SponsorTypeFragment
+import android.support.v4.app.FragmentManager
 
 /**
- * Created by anip on 06/01/18.
+ * Created by anip on 13/01/18.
  */
-class EventPagerAdapter(fm: FragmentManager, private val context: Context, private val titles : List<String>, eventsDayList : List<List<Event>>) : FragmentPagerAdapter(fm) {
-    val events : List<List<Event>> = eventsDayList
+class SponsorPagerAdapter(fm: FragmentManager, private val context: Context, private val titles: List<String>) : FragmentPagerAdapter(fm) {
+//    val events : List<List<Event>> =
     override fun getItem(position: Int): Fragment {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.i("hell","entered")
         when(position){
-            0 -> return EventDayListFragment.newInstance(events[0])
-            1 -> return EventDayListFragment.newInstance(events[1])
-            2 -> return EventDayListFragment.newInstance(events[2])
+            0 -> return SponsorTypeFragment.newInstance("heron")
+            1 -> return SponsorTypeFragment.newInstance("lilypad")
+            2 -> return SponsorTypeFragment.newInstance("turtle")
         }
 
-        return EventDayListFragment.newInstance(events[position])
+        return SponsorTypeFragment.newInstance("heron")
 
     }
 

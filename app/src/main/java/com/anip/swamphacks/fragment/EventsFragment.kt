@@ -2,20 +2,13 @@ package com.anip.swamphacks.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toolbar
-import com.anip.swamphacks.HomeActivity
 import com.anip.swamphacks.R
 import com.anip.swamphacks.adapter.EventAdapter
 import com.anip.swamphacks.adapter.EventPagerAdapter
@@ -49,7 +42,7 @@ class EventsFragment(passedContext : Context) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootView = inflater!!.inflate(R.layout.fragment_event, container, false)
-        rootView.setBackgroundColor(Color.WHITE)
+//        rootView.setBackgroundColor(Color.WHITE)
         var eventLists : MutableList<MutableList<Event>> = mutableListOf<MutableList<Event>> ()
 //        val rv = rootView.findViewById<RecyclerView>(R.id.recyclerView1)
 //        rv.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
@@ -119,7 +112,7 @@ class EventsFragment(passedContext : Context) : Fragment() {
 //        ref.addValueEventListener(eventListener)
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = EventPagerAdapter(fragmentManager, cont, listOf("Friday", "Saturday", "Sunday"),eventLists)
+        mSectionsPagerAdapter = EventPagerAdapter(childFragmentManager, cont, listOf("Friday", "Saturday", "Sunday"),eventLists)
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = rootView.findViewById<ViewPager?>(R.id.container)

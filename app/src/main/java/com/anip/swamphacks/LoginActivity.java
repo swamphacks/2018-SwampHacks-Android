@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.anip.swamphacks.helper.DatabaseHelper;
 import com.anip.swamphacks.model.Event;
+import com.anip.swamphacks.model.Sponsor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -40,8 +41,10 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private DatabaseReference ref;
+    private DatabaseReference ref2;
     private DatabaseHelper db;
     public static ArrayList<Event> events;
+    public static ArrayList<Sponsor> sponsors;
 //    private Event event;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,10 +53,12 @@ public class LoginActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         setContentView(R.layout.activity_login);
         ref = FirebaseDatabase.getInstance().getReference("events");
+        ref2 = FirebaseDatabase.getInstance().getReference("sponsors");
         email_view = findViewById(R.id.email_view);
         pass_view =  findViewById(R.id.pass_view);
         button = findViewById(R.id.button);
         events = new ArrayList<>();
+        sponsors = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db = new DatabaseHelper(this);
         if(sharedPreferences.getString("email", "") != ""){
@@ -65,11 +70,29 @@ public class LoginActivity extends AppCompatActivity {
                         events.add(event);
                     }
 //                    Log.i("hell  --->   ", String.valueOf(events.size()));
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    ref2.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot data  : dataSnapshot.getChildren()){
+                                Sponsor sponsor = data.getValue(Sponsor.class);
+                                sponsors.add(sponsor);
+                            }
+
+
+
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 //                    Gson gson = new Gson();
 //                    String json = gson.toJson(events);
 //                    intent.putExtra("events", events);
-                    startActivity(intent);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                 }
 

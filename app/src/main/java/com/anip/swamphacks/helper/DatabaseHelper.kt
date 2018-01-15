@@ -25,6 +25,7 @@ class  DatabaseHelper(ctx : Context) : ManagedSQLiteOpenHelper(ctx,"SwampHacks",
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         db!!.dropTable("Notification", true)
         db!!.dropTable("Events", true)
+        db!!.dropTable("Sponsors", true)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -34,6 +35,9 @@ class  DatabaseHelper(ctx : Context) : ManagedSQLiteOpenHelper(ctx,"SwampHacks",
                 "name" to TEXT, "description" to TEXT, "startTime" to TEXT, "endTime" to TEXT,
                 "location" to TEXT, "numAttendees" to INTEGER, "type" to TEXT,"map" to TEXT,
                 "avgRating" to TEXT)
+        db!!.createTable("Sponsors", true, "id" to INTEGER ,
+                "name" to TEXT, "description" to TEXT, "logo" to TEXT, "link" to TEXT,
+                "location" to TEXT, "tier" to TEXT)
     }
 
 }
