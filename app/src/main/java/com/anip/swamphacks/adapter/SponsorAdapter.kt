@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.anip.swamphacks.EventActivity
 import com.anip.swamphacks.R
+import com.anip.swamphacks.SponsorActivity
 import com.anip.swamphacks.model.Sponsor
 
 /**
@@ -33,7 +34,7 @@ class SponsorAdapter(val sponsors : List<Sponsor>, private val context: Context)
         println("Sponsor Name" + sponsors[position].name)
         holder?.itemView?.setOnClickListener {
             println("Clicked Item Name"+sponsors[position].name)
-            val intent = Intent(context, EventActivity:: class.java )
+            val intent = Intent(context, SponsorActivity:: class.java )
             intent.putExtra("name",sponsors[position].name)
             context.startActivity(intent)
         }

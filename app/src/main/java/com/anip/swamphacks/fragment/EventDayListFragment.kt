@@ -60,42 +60,6 @@ class EventDayListFragment : Fragment(){
 
         }
 
-//        events = gson.fromJson(this.arguments.getString("DAY"), object : TypeToken<List<Event>>() {}.type)
-
-
-//        events.add(Event("Paul", "Mr"))
-//        events.add(Event("Jane", "Miss"))
-//        events.add(Event("John", "Dr"))
-//        events.add(Event("Amy", "Mrs"))
-//        val eventListener = object : ValueEventListener {
-//            override fun onCancelled(p0: DatabaseError) {
-//                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
-//
-//            override fun onDataChange(p0: DataSnapshot) {
-//                // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//                val children = p0!!.children
-//
-//                children.forEach {
-//                    val event = it.getValue<Event>(Event::class.java)
-//                    println(event!!.name)
-//                    if(events!!.add(event)){
-//                        println("error")
-//                    }
-//                    else{
-//
-//                    }
-//
-//                }
-//                adapter.notifyDataSetChanged()
-//
-//
-//
-////                p0.children.mapNotNullTo(events) { it.getValue<Event>(Event::class.java) }
-//            }
-//        }
-
-
         println(events!!.size)
 
 
