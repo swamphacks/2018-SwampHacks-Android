@@ -27,12 +27,12 @@ class EventPagerAdapter(fm: FragmentManager, private val context: Context, priva
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         Log.i("hell","entered")
         when(position){
-            0 -> return EventDayListFragment.newInstance(events[0])
-            1 -> return EventDayListFragment.newInstance(events[1])
-            2 -> return EventDayListFragment.newInstance(events[2])
+            0 -> return EventDayListFragment.newInstance("Friday")
+            1 -> return EventDayListFragment.newInstance("Saturday")
+            2 -> return EventDayListFragment.newInstance("Sunday")
         }
 
-        return EventDayListFragment.newInstance(events[position])
+        return EventDayListFragment.newInstance("Friday")
 
     }
 

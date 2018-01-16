@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     for(DataSnapshot data  : dataSnapshot.getChildren()){
                         Event event = data.getValue(Event.class);
                         events.add(event);
+                        Log.i("hell  --->   ", String.valueOf(event.getStartTime()));
                     }
 //                    Log.i("hell  --->   ", String.valueOf(events.size()));
                     ref2.addValueEventListener(new ValueEventListener() {

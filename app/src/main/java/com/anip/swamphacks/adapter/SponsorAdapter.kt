@@ -2,15 +2,19 @@ package com.anip.swamphacks.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.anip.swamphacks.EventActivity
 import com.anip.swamphacks.R
 import com.anip.swamphacks.SponsorActivity
 import com.anip.swamphacks.model.Sponsor
+import com.squareup.picasso.Picasso
 
 /**
  * Created by anip on 13/01/18.
@@ -27,10 +31,13 @@ class SponsorAdapter(val sponsors : List<Sponsor>, private val context: Context)
         return sponsors.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         holder?.txtName?.text = sponsors[position].name
-        holder?.txtTitle?.text = sponsors[position].description
+        //TODO sponsors[position].logo
+        Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/swamphacks-confirmed-attendees.appspot.com/o/logo.jpg?alt=media&token=6594fe12-7e4a-470d-8543-44852d074c29").into(holder?.icon)
+        holder?.icon!!.imageAlpha = 125
         println("Sponsor Name" + sponsors[position].name)
         holder?.itemView?.setOnClickListener {
             println("Clicked Item Name"+sponsors[position].name)
@@ -43,7 +50,7 @@ class SponsorAdapter(val sponsors : List<Sponsor>, private val context: Context)
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         //        TODO Change Variable names
-        val txtName = itemView.findViewById<TextView>(R.id.spName)
-        val txtTitle = itemView.findViewById<TextView>(R.id.spTitle)
+        val txtName = itemView.findViewById<TextView>(R.id.spName)!!
+        val icon = itemView.findViewById<ImageView>(R.id.icon)!!
     }
 }

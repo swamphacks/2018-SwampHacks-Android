@@ -30,13 +30,13 @@ class EventDayListFragment : Fragment(){
     lateinit var adapter: EventAdapter
 
     companion object {
-        fun newInstance(eventList: List<Event>): EventDayListFragment {
+        fun newInstance(day: String): EventDayListFragment {
 //            .events = eventList
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val eventsString: String = gson.toJson(eventList)
+//            val eventsString: String = gson.toJson(day)
             var fragmentHome = EventDayListFragment()
             var args = Bundle()
-            args.putString("DAY", eventsString)
+            args.putString("DAY", day)
             fragmentHome.arguments = args
             return fragmentHome
         }
@@ -53,8 +53,9 @@ class EventDayListFragment : Fragment(){
 //        ref = FirebaseDatabase.getInstance().getReference("events")
         events = mutableListOf<SingleEvent>()
         val database: DatabaseHelper = DatabaseHelper.Instance(context)
+        val day = arguments.get("DAY")
         database.use {
-            events = select("Events").columns("name", "description").exec {
+            events = select("Events").columns("name", "description","startTime","endTime").whereArgs("day = {day}", "day" to day).exec {
                 parseList(classParser<SingleEvent>())
             }
 
