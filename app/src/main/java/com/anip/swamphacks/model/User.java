@@ -11,6 +11,8 @@ public class User {
     private String email;
     @SerializedName("team")
     private String team;
+    @SerializedName("isVolunteer")
+    private boolean isVolunteer;
 
     public String getEmail() {
         return email;
@@ -26,5 +28,13 @@ public class User {
 
     public void setTeam(String team) {
         this.team = team;
+    }
+
+    public boolean isVolunteer() {
+        return isVolunteer;
+    }
+
+    public void setVolunteer(boolean volunteer) {
+        isVolunteer = volunteer;
     }
 }

@@ -1,6 +1,8 @@
 package com.anip.swamphacks
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -35,6 +37,7 @@ class EventActivity : AppCompatActivity(){
     private var refUpdate : DatabaseReference ?= null
     private var event : SingleEvent ?= null
     private var teamName  : String ?= null
+    var sharedPreference : SharedPreferences ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.event_activity)
@@ -74,11 +77,13 @@ class EventActivity : AppCompatActivity(){
             daynum = "Day3"
         }
         day.text = event!!.day + " | " + daynum
-        time.text = startTimeFormatted+ " : " + endTimeFormatted
+        time.text = startTimeFormatted+ " - " + endTimeFormatted
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 //        return super.onCreateOptionsMenu(menu)
+        var sharedPreference =   getSharedPreferences("profile", Context.MODE_PRIVATE)
+        menu!!.findItem(R.id.qr_scanner).isVisible = !sharedPreference.getBoolean("isVolunteer",false)
         menuInflater.inflate(R.menu.main,menu)
         return true
     }

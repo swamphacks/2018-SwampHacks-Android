@@ -153,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                                 User profile = data.getValue(User.class);
                                 editor.putString("email", profile.getEmail());
                                 editor.putString("team", profile.getTeam());
+                                editor.putBoolean("isVolunteer",profile.isVolunteer());
                                 Log.i("hell login",profile.getTeam());
                                 editor.apply();
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);

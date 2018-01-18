@@ -10,7 +10,6 @@ import com.anip.swamphacks.model.Sponsor
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_sponsor.*
 import org.jetbrains.anko.db.classParser
-import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.parseSingle
 import org.jetbrains.anko.db.select
 
@@ -37,9 +36,10 @@ class SponsorActivity : AppCompatActivity() {
         }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         title = name
-        Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/swamphacks-confirmed-attendees.appspot.com/o/logo.jpg?alt=media&token=6594fe12-7e4a-470d-8543-44852d074c29").into(logo)
+        println("Printing" + sponsor!!.logoLink)
+        Picasso.with(this).load(sponsor.logoLink).into(logoLink)
         spName.text = sponsor.name
-        Log.i("logo",sponsor.logo)
+        Log.i("logo",sponsor.logoLink)
         location.text = sponsor.location
         about.text = sponsor.description
         reps = RepresentativeAdapter(this, list!!)

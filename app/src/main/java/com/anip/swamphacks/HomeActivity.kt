@@ -93,7 +93,7 @@ class HomeActivity : AppCompatActivity() {
             println("Sponsor Name" + it.tier)
             database.use {
                 insert("Sponsors", "id" to 12, "name" to
-                        it.name, "description" to it.description!!, "link" to it.link, "location" to it.location, "logo" to it.logo, "tier" to it.tier.toLowerCase())
+                        it.name, "description" to it.description!!, "link" to it.link, "location" to it.location, "logo" to it.logoLink, "tier" to it.tier.toLowerCase())
             }
 
         }

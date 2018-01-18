@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.anip.swamphacks.EventActivity
 import com.anip.swamphacks.R
 import com.anip.swamphacks.SponsorActivity
 import com.anip.swamphacks.model.Sponsor
@@ -36,7 +35,7 @@ class SponsorAdapter(val sponsors : List<Sponsor>, private val context: Context)
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         holder?.txtName?.text = sponsors[position].name
         //TODO sponsors[position].logo
-        Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/swamphacks-confirmed-attendees.appspot.com/o/logo.jpg?alt=media&token=6594fe12-7e4a-470d-8543-44852d074c29").into(holder?.icon)
+        Picasso.with(context).load(sponsors[position].logoLink).fit() .into(holder?.icon)
         holder?.icon!!.imageAlpha = 125
         println("Sponsor Name" + sponsors[position].tier)
         when(sponsors[position].tier) {

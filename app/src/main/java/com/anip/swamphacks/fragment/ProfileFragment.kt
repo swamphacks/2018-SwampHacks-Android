@@ -44,7 +44,7 @@ class ProfileFragment(passedContext : Context) : Fragment() {
 //        cont!!.
         var sharedPreference =   cont!!.getSharedPreferences("profile", Context.MODE_PRIVATE)
         var email = rootView.findViewById<TextView>(R.id.email)
-        email.text = sharedPreference.getString("email","")+"\n" + "Anip Mehta"
+        email.text = sharedPreference.getString("email","")+"\n"  + if(sharedPreference.getBoolean("isVolunteer",false)) "Volunteer" else "Hacker"
 
         Log.i("hell",sharedPreference.getString("email","null"))
 //        var image = rootView.findViewById<ImageView>(R.id.QRCode)

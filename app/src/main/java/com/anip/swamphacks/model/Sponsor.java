@@ -2,8 +2,6 @@ package com.anip.swamphacks.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 /**
  * Created by anip on 13/01/18.
  */
@@ -20,16 +18,16 @@ public class Sponsor {
     private String link;
     @SerializedName("location")
     private String location;
-    @SerializedName("logo")
-    private String logo;
+    @SerializedName("logoLink")
+    private String logoLink;
     public Sponsor(){}
-    public Sponsor(String name, String tier, String description, String link, String location, String logo){
+    public Sponsor(String name, String tier, String description, String link, String location, String logoLink){
         this.name = name;
         this.tier = tier;
         this.description = description;
         this.link = link;
         this.location = location;
-        this.logo = logo;
+        this.logoLink = logoLink;
     }
 
     public String getName() {
@@ -72,12 +70,12 @@ public class Sponsor {
         this.location = location;
     }
 
-    public String getLogo() {
-        return logo;
+    public String getLogoLink() {
+        return logoLink;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
+    public void setLogoLink(String logoLink) {
+        this.logoLink = logoLink;
     }
 
 }
