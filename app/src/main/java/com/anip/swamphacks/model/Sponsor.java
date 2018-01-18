@@ -2,11 +2,14 @@ package com.anip.swamphacks.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by anip on 13/01/18.
  */
 
 public class Sponsor {
+
     @SerializedName("name")
     private String name;
     @SerializedName("tier")
@@ -76,4 +79,5 @@ public class Sponsor {
     public void setLogo(String logo) {
         this.logo = logo;
     }
+
 }

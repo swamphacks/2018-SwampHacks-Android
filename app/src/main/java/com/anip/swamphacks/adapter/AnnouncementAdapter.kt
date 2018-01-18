@@ -19,6 +19,20 @@ class AnnouncementAdapter(private val notifications : List<Announcement>, privat
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         holder?.txtTitle?.text = notifications[position].title
         holder?.txtMessage?.text = notifications[position].message
+        when(notifications[position].type){
+            "Logistics" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorImp))
+            }
+            "Food" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorFood))
+            }
+            "Social" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorPurple))
+            }
+            "Techtalk" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorTechTalk))
+            }
+        }
         holder?.itemView?.setOnClickListener {
             val intent = Intent(context, AnnouncementActivity:: class.java )
 //            intent.
@@ -45,5 +59,6 @@ class AnnouncementAdapter(private val notifications : List<Announcement>, privat
         //        TODO Change Variable names
         val txtTitle = itemView.findViewById<TextView>(R.id.txtTitle)!!
         val txtMessage = itemView.findViewById<TextView>(R.id.txtMessage)!!
+        val bar = itemView.findViewById<View>(R.id.bar)!!
     }
 }

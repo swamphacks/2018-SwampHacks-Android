@@ -9,6 +9,8 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.anip.swamphacks.R
 import com.anip.swamphacks.model.SingleEvent
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by anip on 16/01/18.
@@ -16,9 +18,10 @@ import com.anip.swamphacks.model.SingleEvent
 class NowEventsAdapter : BaseAdapter {
 
     private var eventList : List<SingleEvent>
+    private var context : Context
     constructor(context: Context, eventsList: List<SingleEvent>) : super(){
         this.eventList = eventsList
-//        this.context = context
+        this.context = context
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View?
@@ -33,7 +36,30 @@ class NowEventsAdapter : BaseAdapter {
             view = convertView
             vh = view.tag as ViewHolder
         }
-        vh.name.text = eventList[position].name
+//        vh.name.text = eventList[position].name
+        val startTime = eventList[position]!!.startTime?.toLong()
+        val endTime = eventList[position]!!.endTime?.toLong()
+        val start = Date(startTime!!)
+        val formatter = SimpleDateFormat("HH:mm a")
+        val startTimeFormatted = formatter.format(startTime*1000)
+        val endTimeFormatted = formatter.format(Date(endTime!!*1000))
+        vh?.txtName?.text = eventList[position].name
+        vh?.txtTime?.text = startTimeFormatted + " - "+endTimeFormatted
+        vh?.txtLoc?.text = "Location : "+eventList[position].location
+        when(eventList[position].type){
+            "Logistics" -> {
+                vh?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorImp))
+            }
+            "Food" -> {
+                vh?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorFood))
+            }
+            "Social" -> {
+                vh?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorPurple))
+            }
+            "Techtalk" -> {
+                vh?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorTechTalk))
+            }
+        }
 //        vh.tvContent.text = notesList[position].content
         return view
     }
@@ -53,7 +79,10 @@ class NowEventsAdapter : BaseAdapter {
         return eventList.size
     }
     private class ViewHolder(view: View?) {
-        val name: TextView = view?.findViewById<TextView>(R.id.name) as TextView
+        val txtName = view!!.findViewById<TextView>(R.id.txtName)
+        val txtTime = view!!.findViewById<TextView>(R.id.txtTime)
+        val txtLoc = view!!.findViewById<TextView>(R.id.txtLoc)
+        val bar = view!!.findViewById<View>(R.id.bar)
 //        val hos: TextView = view?.findViewById(R.id.tvContent) as TextView
 
     }

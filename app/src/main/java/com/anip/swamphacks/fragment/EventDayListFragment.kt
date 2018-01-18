@@ -55,7 +55,7 @@ class EventDayListFragment : Fragment(){
         val database: DatabaseHelper = DatabaseHelper.Instance(context)
         val day = arguments.get("DAY")
         database.use {
-            events = select("Events").columns("name", "description","startTime","endTime").whereArgs("day = {day}", "day" to day).exec {
+            events = select("Events").columns("name", "description","startTime","endTime","location","type","day").whereArgs("day = {day}", "day" to day).exec {
                 parseList(classParser<SingleEvent>())
             }
 

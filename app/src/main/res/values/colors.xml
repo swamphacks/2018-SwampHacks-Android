@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#7BD0E0</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFF</color>
+    <color name="colorFood">#FCBA7F</color>
+    <color name="colorImp">#F7A6A7</color>
+    <color name="colorTechTalk">#C3E1B2</color>
+    <color name="colorPurple">#A7B0D8</color>
 </resources>

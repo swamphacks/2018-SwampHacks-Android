@@ -38,7 +38,18 @@ class SponsorAdapter(val sponsors : List<Sponsor>, private val context: Context)
         //TODO sponsors[position].logo
         Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/swamphacks-confirmed-attendees.appspot.com/o/logo.jpg?alt=media&token=6594fe12-7e4a-470d-8543-44852d074c29").into(holder?.icon)
         holder?.icon!!.imageAlpha = 125
-        println("Sponsor Name" + sponsors[position].name)
+        println("Sponsor Name" + sponsors[position].tier)
+        when(sponsors[position].tier) {
+            "heron" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorImp))
+            }
+            "turtle" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorFood))
+            }
+            "dragonfly" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorPurple))
+            }
+        }
         holder?.itemView?.setOnClickListener {
             println("Clicked Item Name"+sponsors[position].name)
             val intent = Intent(context, SponsorActivity:: class.java )
@@ -52,5 +63,6 @@ class SponsorAdapter(val sponsors : List<Sponsor>, private val context: Context)
         //        TODO Change Variable names
         val txtName = itemView.findViewById<TextView>(R.id.spName)!!
         val icon = itemView.findViewById<ImageView>(R.id.icon)!!
+        val bar = itemView!!.findViewById<View>(R.id.bar)
     }
 }

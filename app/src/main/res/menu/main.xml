@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/interested_button"
-        android:icon="@drawable/ic_favorite_border_white_24dp"
+        android:id="@+id/qr_scanner"
+        android:icon="@drawable/ic_settings_overscan_black_24dp"
         android:title="Like"
         app:showAsAction="always"
 

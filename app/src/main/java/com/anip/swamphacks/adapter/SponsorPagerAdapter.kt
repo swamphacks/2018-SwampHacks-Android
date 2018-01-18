@@ -19,7 +19,7 @@ class SponsorPagerAdapter(fm: FragmentManager, private val context: Context, pri
         Log.i("hell","entered")
         when(position){
             0 -> return SponsorTypeFragment.newInstance("heron")
-            1 -> return SponsorTypeFragment.newInstance("lilypad")
+            1 -> return SponsorTypeFragment.newInstance("dragonfly")
             2 -> return SponsorTypeFragment.newInstance("turtle")
         }
 

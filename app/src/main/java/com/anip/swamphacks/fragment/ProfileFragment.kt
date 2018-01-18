@@ -1,13 +1,17 @@
 package com.anip.swamphacks.fragment
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.anip.swamphacks.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
@@ -15,17 +19,20 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import kotlinx.android.synthetic.main.fragment_profile.*
 
+@SuppressLint("ValidFragment")
 /**
  * Created by anip on 11/11/17.
  */
-class ProfileFragment : Fragment() {
+class ProfileFragment(passedContext : Context) : Fragment() {
 //    public final static int WIDTH=500;
-    var WIDTH : Int = 500;
+    private var cont : Context?= passedContext
+    var WIDTH : Int = 500
     companion object {
-        fun newInstance(): ProfileFragment {
-            var fragmentHome = ProfileFragment()
+        fun newInstance(context: Context): ProfileFragment {
+            var fragmentHome = ProfileFragment(context)
             var args = Bundle()
             fragmentHome.arguments = args
+
             return fragmentHome
         }
 
@@ -34,10 +41,17 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootView = inflater!!.inflate(R.layout.fragment_profile, container, false)
         rootView.setBackgroundColor(Color.WHITE)
+//        cont!!.
+        var sharedPreference =   cont!!.getSharedPreferences("profile", Context.MODE_PRIVATE)
+        var email = rootView.findViewById<TextView>(R.id.email)
+        email.text = sharedPreference.getString("email","")+"\n" + "Anip Mehta"
+
+        Log.i("hell",sharedPreference.getString("email","null"))
 //        var image = rootView.findViewById<ImageView>(R.id.QRCode)
         try {
             // some code
-            var bitmap : Bitmap = encodeAsBitmap("Anip Mehta")
+
+            var bitmap : Bitmap = encodeAsBitmap(sharedPreference.getString("email","null"))
             println(bitmap)
             var image = rootView.findViewById<ImageView>(R.id.QRCode)
             image.setImageBitmap(bitmap)

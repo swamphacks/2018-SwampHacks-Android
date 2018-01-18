@@ -9,11 +9,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.anip.swamphacks.helper.DatabaseHelper;
 import com.anip.swamphacks.model.Event;
+import com.anip.swamphacks.model.Reps;
 import com.anip.swamphacks.model.Sponsor;
+import com.anip.swamphacks.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
@@ -37,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private String password;
     private EditText email_view;
     private EditText pass_view;
-    private FloatingActionButton button;
+    private Button button;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private DatabaseReference ref;
@@ -45,11 +49,12 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseHelper db;
     public static ArrayList<Event> events;
     public static ArrayList<Sponsor> sponsors;
+    public static ArrayList<Reps> reps;
 //    private Event event;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getPreferences(MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("profile", 0);
         editor = sharedPreferences.edit();
         setContentView(R.layout.activity_login);
         ref = FirebaseDatabase.getInstance().getReference("events");
@@ -59,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
         events = new ArrayList<>();
         sponsors = new ArrayList<>();
+        reps = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         db = new DatabaseHelper(this);
         if(sharedPreferences.getString("email", "") != ""){
@@ -75,9 +81,31 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot data  : dataSnapshot.getChildren()){
-                                Sponsor sponsor = data.getValue(Sponsor.class);
+                                final Sponsor sponsor = data.getValue(Sponsor.class);
+                                String eventId = data.getKey();
+                                String path = "sponsors/" + eventId + "/reps";
+                                DatabaseReference repsRef = FirebaseDatabase.getInstance().getReference(path);
+                                repsRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for(DataSnapshot data : dataSnapshot.getChildren()){
+                                            Reps rep = data.getValue(Reps.class);
+                                            rep.setSponsor(sponsor.getName());
+                                            reps.add(rep);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                                 sponsors.add(sponsor);
                             }
+
+
+
+
 
 
 
@@ -109,17 +137,39 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 email = email_view.getText().toString();
+//                Log.i("hell", email);
+
                 password = pass_view.getText().toString();
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                auth.signInWithEmailAndPassword(email.trim(), password.trim()).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        ref = FirebaseDatabase.getInstance().getReference("confirmed");
+                        Query query = ref.orderByChild("email").equalTo(email.trim());
+                        query.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Log.i("hell", String.valueOf(dataSnapshot));
+                                DataSnapshot data  = dataSnapshot.getChildren().iterator().next();
+                                User profile = data.getValue(User.class);
+                                editor.putString("email", profile.getEmail());
+                                editor.putString("team", profile.getTeam());
+                                Log.i("hell login",profile.getTeam());
+                                editor.apply();
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                         Log.i("hell", task.getResult().getUser().getEmail());
-                        editor.putString("email", task.getResult().getUser().getEmail());
-                        editor.apply();
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
+
                     }
                 });
+
+
             }
         });
 

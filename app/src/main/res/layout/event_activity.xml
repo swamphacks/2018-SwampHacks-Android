@@ -1,37 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="0dp"
-         />
-
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/event_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="20dp"
         android:text="@string/title_sponsors"
         android:padding="10dp"
         />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/ic_favorite_border_white_24dp"
-        android:id="@+id/scanner"
-        android:layout_gravity="bottom" />
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/event_name"
+        android:layout_alignBottom="@+id/event_name"
+        android:layout_alignEnd="@+id/event_name"
+        android:layout_alignRight="@+id/event_name"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/rounded_button"
+        android:padding="8dp"
+        android:gravity="center"
+        android:text="Social"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@+id/event_name"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_sponsors"
+        android:padding="10dp"
+        />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_below="@+id/day"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_sponsors"
+        android:padding="10dp"
+        />
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_below="@+id/time"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_sponsors"
+        android:padding="10dp"
+        />
 
 
-</LinearLayout>
+
+
+</RelativeLayout>
