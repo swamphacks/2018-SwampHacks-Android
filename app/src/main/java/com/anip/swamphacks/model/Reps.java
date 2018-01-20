@@ -12,9 +12,12 @@ public class Reps {
     @SerializedName("image")
     private String image;
     private String sponsor;
-    public Reps(String name, String image){
+    @SerializedName("title")
+    private String title;
+    public Reps(String name, String image, String title){
         this.name = name;
         this.image = image;
+        this.title = title;
     }
 
 //    public Reps(String name, String image, String sponsor){
@@ -48,5 +51,13 @@ public class Reps {
 
     public void setSponsor(String sponsor) {
         this.sponsor = sponsor;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

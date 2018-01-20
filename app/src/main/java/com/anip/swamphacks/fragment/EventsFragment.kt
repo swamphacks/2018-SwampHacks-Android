@@ -6,14 +6,19 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.anip.swamphacks.LoginActivity
 import com.anip.swamphacks.R
 import com.anip.swamphacks.adapter.EventAdapter
 import com.anip.swamphacks.adapter.EventPagerAdapter
+import com.anip.swamphacks.helper.DatabaseHelper
 import com.anip.swamphacks.model.Event
 import com.google.firebase.database.*
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
 
 /**
  * Created by anip on 11/11/17.
@@ -46,23 +51,9 @@ class EventsFragment(passedContext : Context) : Fragment() {
         var eventLists : MutableList<MutableList<Event>> = mutableListOf<MutableList<Event>> ()
 //        val rv = rootView.findViewById<RecyclerView>(R.id.recyclerView1)
 //        rv.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
-        ref = FirebaseDatabase.getInstance().getReference("events")
         events = mutableListOf<Event>()
-        eventsTwo = mutableListOf<Event>()
-        eventsThree = mutableListOf<Event>()
-//        eventLists = mutableListOf<List<Event>>()
-        val event = Event()
-//        events!!.add(event)
-//        eventsTwo!!.add(event)
-//        eventsThree!!.add(event)
-        eventLists!!.add(events!!)
-        eventLists!!.add(eventsTwo!!)
-        eventLists!!.add(eventsThree!!)
+        ref = FirebaseDatabase.getInstance().getReference("events")
 
-//        events.add(Event("Paul", "Mr"))
-//        events.add(Event("Jane", "Miss"))
-//        events.add(Event("John", "Dr"))
-//        events.add(Event("Amy", "Mrs"))
         val eventListener = object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -74,32 +65,29 @@ class EventsFragment(passedContext : Context) : Fragment() {
 
                 children.forEach {
                     val event = it.getValue<Event>(Event::class.java)
-                    println(event!!.name)
-//                    if(events!!.add(event)){
-//                        println("error")
-//                    }
-                    if(events!!.size<=5)
-                    {
-                        events!!.add(event)
-                    }
-                    else if (eventsTwo!!.size<=5){
-                        eventsTwo!!.add(event)
-                    }
-                    else{
-                        eventsThree!!.add(event)
-                    }
+                    events!!.add(event!!)
 
                 }
+                val database: DatabaseHelper = DatabaseHelper.Instance(cont)
+                database.use {
+                    delete("Events", "1 ")
+                }
 
-                eventLists!!.add(events!!)
-                eventLists!!.add(eventsTwo!!)
-                eventLists!!.add(eventsThree!!)
+                   events!!.forEach {
+                       database.use {
+                           insert("Events", "id" to 12, "name" to
+                                   it.name, "description" to it.description, "day" to it.day, "startTime" to it.startTime.toString(), "endTime" to it.endTime.toString(),"type" to it.type,"location" to it.location)
+//                println("StartTime"+it.startTime)
+                       }
+                   }
+                mViewPager!!.adapter = mSectionsPagerAdapter
+                 mSectionsPagerAdapter!!.notifyDataSetChanged()
 
-                mSectionsPagerAdapter!!.notifyDataSetChanged()
-                val tabLayout = rootView.findViewById<View>(R.id.tabs) as TabLayout
-                tabLayout.setupWithViewPager(mViewPager)
+//                mSectionsPagerAdapter!!.notifyDataSetChanged()
+//                val tabLayout = rootView.findViewById<View>(R.id.tabs) as TabLayout
+//                tabLayout.setupWithViewPager(mViewPager)
 //                mSectionsPagerAdapter!!.destroyDrawingCache()
-//                mViewPager!!.adapter = mSectionsPagerAdapter
+
 
 
 
@@ -112,26 +100,23 @@ class EventsFragment(passedContext : Context) : Fragment() {
 //        ref.addValueEventListener(eventListener)
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = EventPagerAdapter(childFragmentManager, cont, listOf("Friday", "Saturday", "Sunday"),eventLists)
+//        if(cont.getSharedPreferences("profile",0).getBoolean("isFirst",true)){
+//            Log.i("Executed ","Set Listner")
+//            ref.addListenerForSingleValueEvent(eventListener)
+//            var editor = cont.getSharedPreferences("profile",0).edit()
+//            editor.putBoolean("isFirst",false)
+//            editor.apply()
+//        }
 
-        // Set up the ViewPager with the sections adapter.
+        mSectionsPagerAdapter = EventPagerAdapter(childFragmentManager, cont, listOf("Friday", "Saturday", "Sunday"),eventLists)
         mViewPager = rootView.findViewById<ViewPager?>(R.id.container)
         mViewPager!!.setCurrentItem(0,true)
-        mViewPager!!.offscreenPageLimit = 2
+        mViewPager!!.offscreenPageLimit = 5
         mViewPager!!.setClipToPadding(false)
         mViewPager!!.setPadding(50, 0, 50, 0)
         val tabLayout = rootView.findViewById<View>(R.id.tabs) as TabLayout
         tabLayout.setupWithViewPager(mViewPager)
         mViewPager!!.adapter = mSectionsPagerAdapter
-
-
-
-//        println(events!!.size)
-
-
-//        adapter = PagerAdapter()
-//        rv.adapter = adapter
-
 
         return rootView
     }

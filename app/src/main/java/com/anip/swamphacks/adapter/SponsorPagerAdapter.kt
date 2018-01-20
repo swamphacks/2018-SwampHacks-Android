@@ -16,11 +16,10 @@ class SponsorPagerAdapter(fm: FragmentManager, private val context: Context, pri
 //    val events : List<List<Event>> =
     override fun getItem(position: Int): Fragment {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        Log.i("hell","entered")
         when(position){
             0 -> return SponsorTypeFragment.newInstance("heron")
-            1 -> return SponsorTypeFragment.newInstance("dragonfly")
-            2 -> return SponsorTypeFragment.newInstance("turtle")
+            1 -> return SponsorTypeFragment.newInstance("turtle")
+            2 -> return SponsorTypeFragment.newInstance("dragonfly")
         }
 
         return SponsorTypeFragment.newInstance("heron")

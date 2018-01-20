@@ -23,8 +23,8 @@ class EventAdapter(val eventList : List<SingleEvent>, private val context: Conte
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        val startTime = eventList[position]!!.startTime?.toLong()
-        val endTime = eventList[position]!!.endTime?.toLong()
+        val startTime = eventList[position].startTime?.toLong()
+        val endTime = eventList[position].endTime?.toLong()
         val start = Date(startTime!!)
         val formatter = SimpleDateFormat("HH:mm a")
         val startTimeFormatted = formatter.format(startTime*1000)
@@ -47,7 +47,6 @@ class EventAdapter(val eventList : List<SingleEvent>, private val context: Conte
             }
         }
         holder?.itemView?.setOnClickListener {
-            println("Clicked Item Name"+eventList[position].name)
             val intent = Intent(context, EventActivity:: class.java )
             intent.putExtra("name",eventList[position].name)
             context.startActivity(intent)

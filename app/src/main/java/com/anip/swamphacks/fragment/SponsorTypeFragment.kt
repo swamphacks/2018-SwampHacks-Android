@@ -43,10 +43,9 @@ class SponsorTypeFragment : Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val gson = GsonBuilder().setPrettyPrinting().create()
-        Log.i("hell","created")
         var rootView = inflater!!.inflate(R.layout.fragment_event_day, container, false)
         var type = arguments["type"]
-        Log.i("hell", type.toString())
+//        Log.i("hell", type.toString())
 //        rootView.setBackgroundColor(Color.WHITE)
         val rv = rootView.findViewById<RecyclerView>(R.id.recyclerView1)
         rv.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
@@ -57,7 +56,7 @@ class SponsorTypeFragment : Fragment(){
             sponsors = select("Sponsors").columns("name", "tier", "description", "link", "location", "logo").whereArgs("tier = {type}", "type" to type).exec {
                 parseList(classParser<Sponsor>())
             }
-        Log.i("hell","Sponsors Size for" + type + sponsors!!.size)
+//        Log.i("hell","Sponsors Size for" + type + sponsors!!.size)
 
         }
 

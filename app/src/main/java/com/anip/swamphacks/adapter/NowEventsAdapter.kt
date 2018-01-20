@@ -30,15 +30,14 @@ class NowEventsAdapter : BaseAdapter {
             view = LayoutInflater.from(parent?.context).inflate(R.layout.view_now_event, parent, false)
             vh = ViewHolder(view)
             view!!.tag = vh
-            Log.i("JSA", "set Tag for ViewHolder, position: " + eventList.size)
 
         } else {
             view = convertView
             vh = view.tag as ViewHolder
         }
 //        vh.name.text = eventList[position].name
-        val startTime = eventList[position]!!.startTime?.toLong()
-        val endTime = eventList[position]!!.endTime?.toLong()
+        val startTime = eventList[position].startTime?.toLong()
+        val endTime = eventList[position].endTime?.toLong()
         val start = Date(startTime!!)
         val formatter = SimpleDateFormat("HH:mm a")
         val startTimeFormatted = formatter.format(startTime*1000)

@@ -17,29 +17,35 @@ import com.anip.swamphacks.model.Announcement
 class AnnouncementAdapter(private val notifications : List<Announcement>, private val context : Context) : RecyclerView.Adapter<AnnouncementAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        holder?.txtTitle?.text = notifications[position].title
-        holder?.txtMessage?.text = notifications[position].message
+        holder?.txtTitle?.text = notifications[position].name
+        holder?.txtMessage?.text = notifications[position].description
         when(notifications[position].type){
-            "Logistics" -> {
+            "Logistics"  -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorImp))
+            }
+            "logistics"  -> {
                 holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorImp))
             }
             "Food" -> {
                 holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorFood))
             }
+            "food" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorFood))
+            }
             "Social" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorPurple))
+            }
+            "social" -> {
                 holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorPurple))
             }
             "Techtalk" -> {
                 holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorTechTalk))
             }
+            "techtalk" -> {
+                holder?.bar!!.setBackgroundColor(context.resources.getColor(R.color.colorTechTalk))
+            }
         }
-        holder?.itemView?.setOnClickListener {
-            val intent = Intent(context, AnnouncementActivity:: class.java )
-//            intent.
-            context.startActivity(intent)
 
-
-        }
     }
 
     override fun getItemCount(): Int {

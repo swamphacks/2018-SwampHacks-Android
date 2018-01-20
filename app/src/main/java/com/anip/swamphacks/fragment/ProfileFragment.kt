@@ -38,13 +38,34 @@ class ProfileFragment(passedContext : Context) : Fragment() {
 
     }
 
+    @SuppressLint("NewApi")
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var rootView = inflater!!.inflate(R.layout.fragment_profile, container, false)
         rootView.setBackgroundColor(Color.WHITE)
 //        cont!!.
         var sharedPreference =   cont!!.getSharedPreferences("profile", Context.MODE_PRIVATE)
         var email = rootView.findViewById<TextView>(R.id.email)
+        var team = rootView.findViewById<TextView>(R.id.team)
         email.text = sharedPreference.getString("email","")+"\n"  + if(sharedPreference.getBoolean("isVolunteer",false)) "Volunteer" else "Hacker"
+        when(sharedPreference.getString("team","gators")){
+            "gators" -> {
+                team.text = "Team Name : Gator"
+                team.setTextColor(cont!!.getColor(R.color.colorTechTalk))
+            }
+            "dragonflies" -> {
+                team.text = "Team Name : Dragonfly"
+                team.setTextColor(cont!!.getColor(R.color.colorImp))
+            }
+            "turtles" -> {
+                team.text = "Team Name : Turtle"
+                team.setTextColor(cont!!.getColor(R.color.colorFood))
+
+            }
+            "herons" -> {
+                team.text = "Team Name : Heron"
+                team.setTextColor(cont!!.getColor(R.color.colorPrimary))
+            }
+        }
 
         Log.i("hell",sharedPreference.getString("email","null"))
 //        var image = rootView.findViewById<ImageView>(R.id.QRCode)

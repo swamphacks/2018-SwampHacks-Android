@@ -5,6 +5,8 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.FrameLayout
 import com.anip.swamphacks.fragment.*
 import com.anip.swamphacks.helper.DatabaseHelper
@@ -60,19 +62,35 @@ class HomeActivity : AppCompatActivity() {
         false
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            android.R.id.home -> {
+                this.finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        this.finish()
+        super.onBackPressed()
+
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_home)
-
-
         
 //        content = findViewById(R.id.content) as FrameLayout
-        val gson = GsonBuilder().setPrettyPrinting().create()
         events = LoginActivity.events!!
         sponsors = LoginActivity.sponsors!!
         repsList = LoginActivity.reps!!
+        Log.i("unique", LoginActivity.reps.size.toString())
         val database: DatabaseHelper = DatabaseHelper.Instance(applicationContext)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         database.use {
             delete("Events","1 ")
             delete("Sponsors", whereClause = "1")
@@ -84,39 +102,39 @@ class HomeActivity : AppCompatActivity() {
             database.use {
                 insert("Events", "id" to 12, "name" to
                         it.name, "description" to it.description!!, "day" to it.day, "startTime" to it.startTime.toString(), "endTime" to it.endTime.toString(),"type" to it.type,"location" to it.location)
-                println("StartTime"+it.startTime)
+//                println("StartTime"+it.startTime)
             }
         }
-        println("Size  of sponsors"+sponsors.size)
+        println("Size  of events"+events.size)
 
         sponsors.forEach {
-            println("Sponsor Name" + it.tier)
+//            println("Sponsor Name" + it.tier)
             database.use {
                 insert("Sponsors", "id" to 12, "name" to
                         it.name, "description" to it.description!!, "link" to it.link, "location" to it.location, "logo" to it.logoLink, "tier" to it.tier.toLowerCase())
             }
 
         }
-        repsList.forEach{
+        Log.i("hell_server_reps", repsList.size.toString())
+        LoginActivity.reps.forEach{
             database.use{
-                insert("Reps", "name" to it.name, "image" to it.image,"sponsor" to it.sponsor)
+                insert("Reps", "name" to it.name, "image" to it.image,"sponsor" to it.sponsor,"title" to it.title)
             }
         }
 
 
-        Log.i("hell  --->   ", LoginActivity.events.size.toString())
+
+//        Log.i("hell  --->   ", LoginActivity.events.size.toString())
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        if(intent.hasExtra("notification")){
-            if(intent.getStringExtra("notification").equals("true")){
-                val fragment = NotificationFragment.Companion.newInstance()
-                addFragment(fragment,"Announcements")
-            }
 
+        if(intent.hasExtra("notification")){
+            navigation.selectedItemId = R.id.navigation_announcements
         }
         else {
-            val fragment = EventsFragment.Companion.newInstance(context = this)
-            addFragment(fragment,"Events")
+            val fragment = EventsFragment.Companion.newInstance(this)
+            addFragment(fragment, "Events")
+            navigation.selectedItemId = R.id.navigation_events
         }
 
 
@@ -128,7 +146,6 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-
                 .replace(R.id.content,fragment)
                 .addToBackStack(null)
                 .commit()

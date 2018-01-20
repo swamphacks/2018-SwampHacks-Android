@@ -50,15 +50,12 @@ class NowFragment( passedContext : Context ) : Fragment() {
             }
 
         }
-        val currentTime = 1516453400
+        val currentTime = System.currentTimeMillis()/1000
         eventList.forEach {
-            println("FRom db : "+it.startTime)
             if(it.startTime!!.toLong() < currentTime && it.endTime!!.toLong() > currentTime){
                 list.add( it )
             }
         }
-        Log.i("EventSize", eventList.size.toString())
-        Log.i("Current Events", list.size.toString())
         adapter = NowEventsAdapter(context, list)
         var listView = rootView.findViewById<ListView>(R.id.events)
         listView.adapter = adapter

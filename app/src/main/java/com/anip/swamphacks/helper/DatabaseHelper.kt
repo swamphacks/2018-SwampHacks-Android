@@ -39,7 +39,7 @@ class  DatabaseHelper(ctx : Context) : ManagedSQLiteOpenHelper(ctx,"SwampHacks",
                 "name" to TEXT, "description" to TEXT, "logo" to TEXT, "link" to TEXT,
                 "location" to TEXT, "tier" to TEXT)
         db!!.createTable("Reps", true, "sponsor" to TEXT ,
-                "name" to TEXT, "image" to TEXT)
+                "name" to TEXT, "image" to TEXT, "title" to TEXT)
     }
 
 }

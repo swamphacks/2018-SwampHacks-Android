@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/active_event">
 
     <TextView
         android:id="@+id/event_name"
@@ -70,7 +82,6 @@
         android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:textStyle="bold"
@@ -80,8 +91,133 @@
         android:text="@string/title_sponsors"
         android:padding="10dp"
         />
+    </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/active_event"
+        android:id="@+id/event_end"
+        android:visibility="visible">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Each Team Earned"
+            android:padding="10dp"
+            android:textColor="@android:color/darker_gray"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                app:srcCompat="@drawable/gators"
+                android:id="@+id/gator_image"/>
+
+            <TextView
+                android:id="@+id/gators"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="83dp"
+                android:layout_marginStart="83dp"
+                android:layout_toEndOf="@+id/gator_image"
+                android:layout_toRightOf="@+id/gator_image"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="235 points"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorTechTalk" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                app:srcCompat="@drawable/heron"
+                android:id="@+id/heron_image"/>
+
+            <TextView
+                android:id="@+id/heron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="83dp"
+                android:layout_marginStart="83dp"
+                android:layout_toEndOf="@+id/heron_image"
+                android:layout_toRightOf="@+id/heron_image"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="235 points"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorFood" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                app:srcCompat="@drawable/turtles"
+                android:id="@+id/turtle_image"/>
+
+            <TextView
+                android:id="@+id/turtle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="83dp"
+                android:layout_marginStart="83dp"
+                android:layout_toEndOf="@+id/turtle_image"
+                android:layout_toRightOf="@+id/turtle_image"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="235 points"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                app:srcCompat="@drawable/dragonfly"
+                android:id="@+id/dragonfly_image"/>
+
+            <TextView
+                android:id="@+id/dragonfly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="83dp"
+                android:layout_marginStart="83dp"
+                android:layout_toEndOf="@+id/dragonfly_image"
+                android:layout_toRightOf="@+id/dragonfly_image"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="235 points"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorFood" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
 
 </RelativeLayout>
+</ScrollView>

@@ -14,8 +14,9 @@ data class Event(val id : Int,
                  val type: String = "type",
                  val map: String = "map",
                  val avgRating : Float = 1.0f,
-                 val day : String = "Friday")
+                 val day : String = "Friday",
+                 val isVolunteer : Boolean = false)
 {
-    constructor() : this(12,name = "Anip",description = "",startTime = 1000, endTime = 1000, location = "", numAttendees = 0, type = "",map = "", avgRating = 0.5F, day = "") // this constructor is an explicit
+    constructor() : this(12,name = "Anip",description = "",startTime = 1000, endTime = 1000, location = "", numAttendees = 0, type = "",map = "", avgRating = 0.5F, day = "",isVolunteer = false) // this constructor is an explicit
     // "empty" constructor, as seen by Java.
 }

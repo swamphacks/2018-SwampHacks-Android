@@ -34,7 +34,7 @@ class SponsorFragment(passedContext: Context) : Fragment(){
 
 
 
-        mSectionsPagerAdapter = SponsorPagerAdapter(childFragmentManager, cont, listOf("heron", "dragonfly", "turtle"))
+        mSectionsPagerAdapter = SponsorPagerAdapter(childFragmentManager, cont, listOf("heron", "turtle", "dragonfly"))
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = rootView.findViewById<ViewPager?>(R.id.container)

@@ -50,7 +50,6 @@ class SponsorAdapter(val sponsors : List<Sponsor>, private val context: Context)
             }
         }
         holder?.itemView?.setOnClickListener {
-            println("Clicked Item Name"+sponsors[position].name)
             val intent = Intent(context, SponsorActivity:: class.java )
             intent.putExtra("name",sponsors[position].name)
             context.startActivity(intent)

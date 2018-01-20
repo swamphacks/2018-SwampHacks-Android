@@ -12,6 +12,10 @@ import com.anip.swamphacks.R
 import com.anip.swamphacks.model.Reps
 import com.anip.swamphacks.util.CircleTransform
 import com.squareup.picasso.Picasso
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.util.Base64
+
 
 /**
  * Created by anip on 16/01/18.
@@ -39,7 +43,11 @@ class RepresentativeAdapter : BaseAdapter{
             vh = view.tag as ViewHolder
         }
         vh.name.text = repsList!![position].name
-        Picasso.with(context).load("https://firebasestorage.googleapis.com/v0/b/swamphacks-applicants.appspot.com/o/DSC01265.jpg?alt=media&token=b6bf725c-e62e-4415-9238-8d151cad894be").transform(CircleTransform()).error(R.drawable.logo).into(vh!!.link)
+        val imageBytes = Base64.decode(repsList!![position]!!.image, Base64.DEFAULT)
+        val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        vh.link.setImageBitmap(decodedImage)
+        vh.message.text = repsList!![position].title
+//        Picasso.with(context).load(decodedImage).transform(CircleTransform()).error(R.drawable.logo).into(vh!!.link)
 //        vh.tvContent.text = notesList[position].content
         return view
     }
@@ -61,7 +69,7 @@ class RepresentativeAdapter : BaseAdapter{
     private class ViewHolder(view: View?) {
         val name: TextView = view?.findViewById<TextView>(R.id.name) as TextView
         val link : ImageView = view?.findViewById<ImageView>(R.id.profile) as ImageView
-//        val hos: TextView = view?.findViewById(R.id.tvContent) as TextView
+        val message: TextView = view?.findViewById<TextView>(R.id.designation) as TextView
 
     }
 }

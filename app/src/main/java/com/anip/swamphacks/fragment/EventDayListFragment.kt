@@ -45,7 +45,6 @@ class EventDayListFragment : Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val gson = GsonBuilder().setPrettyPrinting().create()
-        Log.i("hell","created")
         var rootView = inflater!!.inflate(R.layout.fragment_event_day, container, false)
 //        rootView.setBackgroundColor(Color.WHITE)
         val rv = rootView.findViewById<RecyclerView>(R.id.recyclerView1)
@@ -54,6 +53,7 @@ class EventDayListFragment : Fragment(){
         events = mutableListOf<SingleEvent>()
         val database: DatabaseHelper = DatabaseHelper.Instance(context)
         val day = arguments.get("DAY")
+        println("Event Day"+day)
         database.use {
             events = select("Events").columns("name", "description","startTime","endTime","location","type","day").whereArgs("day = {day}", "day" to day).exec {
                 parseList(classParser<SingleEvent>())
@@ -61,7 +61,6 @@ class EventDayListFragment : Fragment(){
 
         }
 
-        println(events!!.size)
 
 
         adapter = EventAdapter(events!!,context)

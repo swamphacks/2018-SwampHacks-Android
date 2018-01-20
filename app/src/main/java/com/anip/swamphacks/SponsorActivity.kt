@@ -3,6 +3,7 @@ package com.anip.swamphacks
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.MenuItem
 import com.anip.swamphacks.adapter.RepresentativeAdapter
 import com.anip.swamphacks.helper.DatabaseHelper
 import com.anip.swamphacks.model.Reps
@@ -31,21 +32,31 @@ class SponsorActivity : AppCompatActivity() {
             sponsor = select("Sponsors").columns("name", "tier", "description", "link", "location", "logo").whereArgs("name = {name}", "name" to name).limit(1).exec {
                 parseSingle(classParser())
             }
-            list = select("Reps").columns("name", "image").whereArgs("sponsor = {sponsor}", "sponsor" to sponsor.name).parseList(classParser())
+            list = select("Reps").columns("name", "image","title").whereArgs("sponsor = {sponsor}", "sponsor" to sponsor.name).parseList(classParser())
             println("reps size" + list)
         }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         title = name
-        println("Printing" + sponsor!!.logoLink)
         Picasso.with(this).load(sponsor.logoLink).into(logoLink)
         spName.text = sponsor.name
-        Log.i("logo",sponsor.logoLink)
+//        Log.i("logo",sponsor.logoLink)
         location.text = sponsor.location
         about.text = sponsor.description
         reps = RepresentativeAdapter(this, list!!)
         peoples.adapter = reps
 
 
+
+    }
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            android.R.id.home -> {
+                onBackPressed()
+            }
+        }
+
+
+        return super.onOptionsItemSelected(item)
 
     }
 }
